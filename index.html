@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Neonatal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6; /* Un gris verdoso muy claro */
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .input-field {
+            @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors duration-200;
+        }
+        .label {
+            @apply block text-sm font-medium text-gray-700;
+        }
+        .tab-btn {
+            @apply py-3 px-5 font-medium text-sm sm:text-base rounded-t-lg transition-colors duration-200 border-b-2 border-transparent;
+        }
+        .active-tab {
+            @apply border-b-2 border-teal-700 -mb-px text-teal-700 font-semibold;
+        }
+        .inactive-tab {
+            @apply text-gray-500 hover:text-teal-700;
+        }
+        .btn {
+            @apply px-4 py-2 rounded-md font-semibold text-sm shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+        }
+        .btn-primary {
+            @apply bg-teal-600 text-white hover:bg-teal-700 focus:ring-teal-500;
+        }
+        .btn-secondary {
+            @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400;
+        }
+        .btn-danger {
+            @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+        }
+        .btn-edit {
+            @apply bg-blue-500 text-white hover:bg-blue-600 px-3 py-1 text-xs rounded-md;
+        }
+        .btn-delete {
+            @apply bg-red-500 text-white hover:bg-red-600 px-3 py-1 text-xs rounded-md;
+        }
+        .btn-export {
+            @apply bg-teal-600 text-white hover:bg-teal-700 focus:ring-teal-500;
+        }
+        .table-header {
+            @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+        }
+        .table-cell {
+            @apply px-6 py-4 whitespace-nowrap text-sm text-gray-800;
+        }
+        /* Estilo para el modal */
+        .modal {
+            @apply fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 transition-opacity duration-300;
+        }
+        .modal-content {
+            @apply bg-white p-6 rounded-lg shadow-xl w-11/12 max-w-md transform transition-all duration-300 scale-95;
+        }
+        .modal-title {
+            @apply text-xl font-semibold text-gray-900;
+        }
+        .modal-body {
+            @apply mt-2 text-sm text-gray-600;
+        }
+        .modal-footer {
+            @apply mt-6 flex justify-end space-x-3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <!-- Encabezado -->
+        <header class="mb-6">
+            <h1 class="text-3xl font-bold text-teal-700">Registro de Pacientes Neonatales</h1>
+        </header>
+
+        <!-- Pestañas -->
+        <div class="mb-6">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-2" aria-label="Tabs">
+                    <button id="tab-ingreso-btn" class="tab-btn active-tab">Ingreso de Paciente</button>
+                    <button id="tab-consulta-btn" class="tab-btn inactive-tab">Consulta y Edición</button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Contenido de Pestañas -->
+        <div>
+            <!-- PESTAÑA 1: INGRESO DE PACIENTE -->
+            <div id="tab-ingreso-content">
+                <form id="formIngreso" class="space-y-6 bg-white p-6 rounded-lg shadow-md">
+                    
+                    <!-- Sección de Datos Personales -->
+                    <section>
+                        <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Datos del Paciente</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div>
+                                <label for="apellido" class="label">Apellido</label>
+                                <input type="text" id="apellido" name="apellido" class="input-field" required>
+                            </div>
+                            <div>
+                                <label for="nombre" class="label">Nombre</label>
+                                <input type="text" id="nombre" name="nombre" class="input-field" required>
+                            </div>
+                            <div>
+                                <label for="fechaNacimiento" class="label">Fecha de Nacimiento</label>
+                                <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="input-field" required>
+                            </div>
+                            <div>
+                                <label for="horaNacimiento" class="label">Hora de Nacimiento</label>
+                                <input type="time" id="horaNacimiento" name="horaNacimiento" class="input-field">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Sección de Datos Maternos -->
+                    <section>
+                        <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Datos Maternos</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div>
+                                <label for="edadMaterna" class="label">Edad Materna</label>
+                                <input type="number" id="edadMaterna" name="edadMaterna" class="input-field">
+                            </div>
+                            <div>
+                                <label for="gestas" class="label">N° Gestas</label>
+                                <input type="number" id="gestas" name="gestas" class="input-field">
+                            </div>
+                            <div>
+                                <label for="partos" class="label">N° Partos</label>
+                                <input type="number" id="partos" name="partos" class="input-field">
+                            </div>
+                            <div>
+                                <label for="controlada" class="label">Controlada</label>
+                                <select id="controlada" name="controlada" class="input-field">
+                                    <option value="">Seleccionar</option>
+                                    <option value="si">Sí</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="controles" class="label">N° Controles</label>
+                                <input type="number" id="controles" name="controles" class="input-field">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Sección de Serología (Colapsada) -->
+                    <section>
+                        <details class="bg-gray-50 p-4 rounded-lg border">
+                            <summary class="text-lg font-semibold text-teal-700 cursor-pointer">Serología</summary>
+                            <div class="mt-4 space-y-4">
+                                <!-- VDRL -->
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                    <label class="label">VDRL</label>
+                                    <input type="date" id="fechaVDRL" name="fechaVDRL" class="input-field" title="Fecha VDRL">
+                                    <select id="resultadoVDRL" name="resultadoVDRL" class="input-field" title="Resultado VDRL">
+                                        <option value="">Resultado</option>
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                    </select>
+                                </div>
+                                <!-- HIV -->
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                    <label class="label">HIV</label>
+                                    <input type="date" id="fechaHIV" name="fechaHIV" class="input-field" title="Fecha HIV">
+                                    <select id="resultadoHIV" name="resultadoHIV" class="input-field" title="Resultado HIV">
+                                        <option value="">Resultado</option>
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                    </select>
+                                </div>
+                                <!-- Chagas -->
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                    <label class="label">Chagas</label>
+                                    <input type="date" id="fechaChagas" name="fechaChagas" class="input-field" title="Fecha Chagas">
+                                    <select id="resultadoChagas" name="resultadoChagas" class="input-field" title="Resultado Chagas">
+                                        <option value="">Resultado</option>
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                    </select>
+                                </div>
+                                <!-- HBV -->
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                    <label class="label">HBV</label>
+                                    <input type="date" id="fechaHBV" name="fechaHBV" class="input-field" title="Fecha HBV">
+                                    <select id="resultadoHBV" name="resultadoHBV" class="input-field" title="Resultado HBV">
+                                        <option value="">Resultado</option>
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                    </select>
+                                </div>
+                                <!-- Toxoplasmosis -->
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                    <label class="label">Toxoplasmosis</label>
+                                    <input type="date" id="fechaToxo" name="fechaToxo" class="input-field" title="Fecha Toxoplasmosis">
+                                    <select id="resultadoToxo" name="resultadoToxo" class="input-field" title="Resultado Toxoplasmosis">
+                                        <option value="">Resultado</option>
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                    </select>
+                                </div>
+                                <!-- CMV -->
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                    <label class="label">CMV</label>
+                                    <input type="date" id="fechaCMV" name="fechaCMV" class="input-field" title="Fecha CMV">
+                                    <select id="resultadoCMV" name="resultadoCMV" class="input-field" title="Resultado CMV">
+                                        <option value="">Resultado</option>
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                    </select>
+                                </div>
+                                <!-- Notas Serología -->
+                                <div class="col-span-1 sm:col-span-3">
+                                    <label for="notasSerologia" class="label">Notas Serología</label>
+                                    <textarea id="notasSerologia" name="notasSerologia" rows="2" class="input-field"></textarea>
+                                </div>
+                            </div>
+                        </details>
+                    </section>
+
+                    <!-- Sección de Datos del Nacimiento -->
+                    <section>
+                        <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Datos del Nacimiento</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div>
+                                <label for="pesoNacer" class="label">Peso (gr)</label>
+                                <input type="number" id="pesoNacer" name="pesoNacer" class="input-field">
+                            </div>
+                            <div>
+                                <label for="talla" class="label">Talla (cm)</label>
+                                <input type="number" step="0.1" id="talla" name="talla" class="input-field">
+                            </div>
+                            <div>
+                                <label for="perimetroCefalico" class="label">Per. Cefálico (cm)</label>
+                                <input type="number" step="0.1" id="perimetroCefalico" name="perimetroCefalico" class="input-field">
+                            </div>
+                            <div>
+                                <label for="edadGestacional" class="label">EG (sem)</label>
+                                <input type="number" step="0.1" id="edadGestacional" name="edadGestacional" class="input-field">
+                            </div>
+                            <div>
+                                <label for="apgar1" class="label">Apgar 1'</label>
+                                <input type="number" id="apgar1" name="apgar1" class="input-field">
+                            </div>
+                            <div>
+                                <label for="apgar5" class="label">Apgar 5'</label>
+                                <input type="number" id="apgar5" name="apgar5" class="input-field">
+                            </div>
+                            <div>
+                                <label for="tipoNacimiento" class="label">Tipo de Nacimiento</label>
+                                <select id="tipoNacimiento" name="tipoNacimiento" class="input-field">
+                                    <option value="">Seleccionar</option>
+                                    <option value="parto">Parto</option>
+                                    <option value="cesarea">Cesárea</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Sección de Grupo y Rh -->
+                    <section>
+                        <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Grupo Sanguíneo</h2>
+                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div>
+                                <label for="grupoMaterno" class="label">G. Materno</label>
+                                <select id="grupoMaterno" name="grupoMaterno" class="input-field">
+                                    <option value="">Seleccionar</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="AB">AB</option>
+                                    <option value="0">0</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="rhMaterno" class="label">Rh Materno</label>
+                                <select id="rhMaterno" name="rhMaterno" class="input-field">
+                                    <option value="">Seleccionar</option>
+                                    <option value="+">+</option>
+                                    <option value="-">-</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="grupoPaciente" class="label">G. Paciente</label>
+                                <select id="grupoPaciente" name="grupoPaciente" class="input-field">
+                                    <option value="">Seleccionar</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="AB">AB</option>
+                                    <option value="0">0</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="rhPaciente" class="label">Rh Paciente</label>
+                                <select id="rhPaciente" name="rhPaciente" class="input-field">
+                                    <option value="">Seleccionar</option>
+                                    <option value="+">+</option>
+                                    <option value="-">-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Sección de Diagnóstico y Evolución -->
+                    <section>
+                        <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Diagnóstico y Evolución</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            
+                            <!-- Evolución -->
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="label">Evolución</label>
+                                    <select id="evolucion" name="evolucion" class="input-field">
+                                        <option value="">Seleccionar</option>
+                                        <option value="internacion_conjunta">Internación Conjunta</option>
+                                        <option value="utin">UTIN</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Diagnósticos (Colapsado) -->
+                            <div>
+                                <details class="bg-gray-50 p-4 rounded-lg border">
+                                    <summary class="text-lg font-semibold text-teal-700 cursor-pointer">Diagnóstico (múltiple)</summary>
+                                    
+                                    <div id="diagnosticosCheckbox" class="mt-4 space-y-2 max-h-48 overflow-y-auto border p-3 rounded-md bg-white">
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNT-PAEG" class="mr-2"> RNT-PAEG</label>
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNT-APEG" class="mr-2"> RNT-APEG</label>
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNT-BPEG" class="mr-2"> RNT-BPEG</label>
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPT-PAEG" class="mr-2"> RNPT-PAEG</label>
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPT-BPEG" class="mr-2"> RNPT-BPEG</label>
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPT-APEG" class="mr-2"> RNPT-APEG</text-teal-700</label>
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPOST-PAEG" class="mr-2"> RNPOST-PAEG</label>
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPOST-BPEG" class="mr-2"> RNPOST-BPEG</label>
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPOST-APEG" class="mr-2"> RNPOST-APEG</label>
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="Asfixia neonatal" class="mr-2"> Asfixia neonatal</label>
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="Dif. respiratoria" class="mr-2"> Dif. respiratoria</label>
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="Otros" class="mr-2"> Otros</label>
+                                    </div>
+                                    <div class="mt-4">
+                                        <label for="diagnosticoOtros" class="label">Agregar otro diagnóstico</label>
+                                        <input type="text" id="diagnosticoOtros" name="diagnosticoOtros" class="input-field" placeholder="Escriba otro...">
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+
+                        <!-- Notas (ancho completo) -->
+                        <div class="mt-6">
+                            <label for="notas" class="label">Notas</label>
+                            <textarea id="notas" name="notas" rows="4" class="input-field"></textarea>
+                        </div>
+                    </section>
+
+                    <!-- Botón de Guardar -->
+                    <div class="pt-4 border-t text-right">
+                        <button type="submit" id="btnGuardar" class="btn btn-primary">
+                            Guardar Paciente
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- PESTAÑA 2: CONSULTA Y EDICIÓN -->
+            <div id="tab-consulta-content" class="hidden">
+                <div class="space-y-8">
+                    <!-- Sección de Búsqueda -->
+                    <section class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Buscar Pacientes</h2>
+                        <div class="flex flex-wrap gap-4 items-end">
+                            <div class="flex-grow">
+                                <label for="buscarApellido" class="label">Apellido</label>
+                                <input type="text" id="buscarApellido" class="input-field" placeholder="Buscar por apellido...">
+                            </div>
+                            <div class="flex-grow">
+                                <label for="fechaDesde" class="label">Nacido entre</label>
+                                <input type="date" id="fechaDesde" class="input-field">
+                            </div>
+                            <div class="flex-grow">
+                                <label for="fechaHasta" class="label">y</label>
+                                <input type="date" id="fechaHasta" class="input-field">
+                            </div>
+                            <div class="flex-shrink-0">
+                                <button id="btnBuscar" class="btn btn-primary w-full sm:w-auto">Buscar</button>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <button id="btnLimpiar" class="btn btn-secondary w-full sm:w-auto">Limpiar</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Opciones de Exportación -->
+                    <section>
+                        <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Exportar Datos</h2>
+                        <div class="flex flex-wrap gap-3">
+                             <button id="btnExportarFiltrado" class="btn btn-export">
+                                Exportar Vista Actual
+                             </button>
+                             <button id="btnExportarTodo" class="btn btn-export">
+                                Exportar Todo
+                             </button>
+                        </div>
+                    </section>
+
+                    <!-- Tabla de Resultados -->
+                    <section>
+                        <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Resultados</h2>
+                        <p id="loadingIndicator" class="text-center text-gray-600">Cargando pacientes...</p>
+                        <div id="resultadosContainer" class="overflow-x-auto">
+                            <!-- La tabla se generará aquí -->
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edición -->
+    <div id="editModal" class="modal hidden opacity-0">
+        <div class="modal-content max-w-4xl opacity-0 scale-95">
+            <h2 class="text-2xl font-semibold text-teal-700 mb-4">Editar Paciente</h2>
+            <form id="formEdicion" class="space-y-6 max-h-[70vh] overflow-y-auto pr-2">
+                <input type="hidden" id="editDocId" name="editDocId">
+                
+                <!-- Datos Personales -->
+                <section>
+                    <h3 class="text-lg font-semibold text-teal-700 border-b pb-2 mb-4">Datos del Paciente</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div><label for="editApellido" class="label">Apellido</label><input type="text" id="editApellido" name="editApellido" class="input-field" required></div>
+                        <div><label for="editNombre" class="label">Nombre</label><input type="text" id="editNombre" name="editNombre" class="input-field" required></div>
+                        <div><label for="editFechaNacimiento" class="label">Fecha de Nacimiento</label><input type="date" id="editFechaNacimiento" name="editFechaNacimiento" class="input-field" required></div>
+                        <div><label for="editHoraNacimiento" class="label">Hora de Nacimiento</label><input type="time" id="editHoraNacimiento" name="editHoraNacimiento" class="input-field"></div>
+                    </div>
+                </section>
+
+                <!-- Datos Maternos -->
+                <section>
+                    <h3 class="text-lg font-semibold text-teal-700 border-b pb-2 mb-4">Datos Maternos</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div><label for="editEdadMaterna" class="label">Edad Materna</label><input type="number" id="editEdadMaterna" name="editEdadMaterna" class="input-field"></div>
+                        <div><label for="editGestas" class="label">N° Gestas</label><input type="number" id="editGestas" name="editGestas" class="input-field"></div>
+                        <div><label for="editPartos" class="label">N° Partos</label><input type="number" id="editPartos" name="editPartos" class="input-field"></div>
+                        <div><label for="editControlada" class="label">Controlada</label><select id="editControlada" name="editControlada" class="input-field"><option value="">Seleccionar</option><option value="si">Sí</option><option value="no">No</option></select></div>
+                        <div><label for="editControles" class="label">N° Controles</label><input type="number" id="editControles" name="editControles" class="input-field"></div>
+                    </div>
+                </section>
+                
+                <!-- Serología -->
+                <section>
+                    <details class="bg-gray-50 p-4 rounded-lg border" open>
+                        <summary class="text-lg font-semibold text-teal-700 cursor-pointer">Serología</summary>
+                        <div class="mt-4 space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                <label class="label">VDRL</label>
+                                <input type="date" id="editFechaVDRL" name="editFechaVDRL" class="input-field">
+                                <select id="editResultadoVDRL" name="editResultadoVDRL" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                <label class="label">HIV</label>
+                                <input type="date" id="editFechaHIV" name="editFechaHIV" class="input-field">
+                                <select id="editResultadoHIV" name="editResultadoHIV" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                <label class="label">Chagas</label>
+                                <input type="date" id="editFechaChagas" name="editFechaChagas" class="input-field">
+                                <select id="editResultadoChagas" name="editResultadoChagas" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                <label class="label">HBV</label>
+                                <input type="date" id="editFechaHBV" name="editFechaHBV" class="input-field">
+                                <select id="editResultadoHBV" name="editResultadoHBV" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                <label class="label">Toxoplasmosis</label>
+                                <input type="date" id="editFechaToxo" name="editFechaToxo" class="input-field">
+                                <select id="editResultadoToxo" name="editResultadoToxo" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                <label class="label">CMV</label>
+                                <input type="date" id="editFechaCMV" name="editFechaCMV" class="input-field">
+                                <select id="editResultadoCMV" name="editResultadoCMV" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                            </div>
+                             <div class="col-span-1 sm:col-span-3">
+                                <label for="editNotasSerologia" class="label">Notas Serología</label>
+                                <textarea id="editNotasSerologia" name="editNotasSerologia" rows="2" class="input-field"></textarea>
+                            </div>
+                        </div>
+                    </details>
+                </section>
+
+                <!-- Datos del Nacimiento -->
+                <section>
+                    <h3 class="text-lg font-semibold text-teal-700 border-b pb-2 mb-4">Datos del Nacimiento</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div><label for="editPesoNacer" class="label">Peso (gr)</label><input type="number" id="editPesoNacer" name="editPesoNacer" class="input-field"></div>
+                        <div><label for="editTalla" class="label">Talla (cm)</label><input type="number" step="0.1" id="editTalla" name="editTalla" class="input-field"></div>
+                        <div><label for="editPerimetroCefalico" class="label">Per. Cefálico (cm)</label><input type="number" step="0.1" id="editPerimetroCefalico" name="editPerimetroCefalico" class="input-field"></div>
+                        <div><label for="editEdadGestacional" class="label">EG (sem)</label><input type="number" step="0.1" id="editEdadGestacional" name="editEdadGestacional" class="input-field"></div>
+                        <div><label for="editApgar1" class="label">Apgar 1'</label><input type="number" id="editApgar1" name="editApgar1" class="input-field"></div>
+                        <div><label for="editApgar5" class="label">Apgar 5'</label><input type="number" id="editApgar5" name="editApgar5" class="input-field"></div>
+                        <div><label for="editTipoNacimiento" class="label">Tipo de Nacimiento</label><select id="editTipoNacimiento" name="editTipoNacimiento" class="input-field"><option value="">Seleccionar</option><option value="parto">Parto</option><option value="cesarea">Cesárea</option></select></div>
+                    </div>
+                </section>
+
+                <!-- Grupo y Rh -->
+                <section>
+                    <h3 class="text-lg font-semibold text-teal-700 border-b pb-2 mb-4">Grupo Sanguíneo</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div><label for="editGrupoMaterno" class="label">G. Materno</label><select id="editGrupoMaterno" name="editGrupoMaterno" class="input-field"><option value="A">A</option><option value="B">B</option><option value="AB">AB</option><option value="0">0</option></select></div>
+                        <div><label for="editRhMaterno" class="label">Rh Materno</label><select id="editRhMaterno" name="editRhMaterno" class="input-field"><option value="+">+</option><option value="-">-</option></select></div>
+                        <div><label for="editGrupoPaciente" class="label">G. Paciente</label><select id="editGrupoPaciente" name="editGrupoPaciente" class="input-field"><option value="A">A</option><option value="B">B</option><option value="AB">AB</option><option value="0">0</option></select></div>
+                        <div><label for="editRhPaciente" class="label">Rh Paciente</label><select id="editRhPaciente" name="editRhPaciente" class="input-field"><option value="+">+</option><option value="-">-</option></select></div>
+                    </div>
+                </section>
+
+                <!-- Diagnóstico y Evolución -->
+                <section>
+                    <h3 class="text-lg font-semibold text-teal-700 border-b pb-2 mb-4">Diagnóstico y Evolución</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label for="editEvolucion" class="label">Evolución</label>
+                                <select id="editEvolucion" name="editEvolucion" class="input-field">
+                                    <option value="">Seleccionar</option>
+                                    <option value="internacion_conjunta">Internación Conjunta</option>
+                                    <option value="utin">UTIN</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <details class="bg-gray-50 p-4 rounded-lg border" open> <!-- 'open' para que esté abierto al editar -->
+                                <summary class="text-lg font-semibold text-teal-700 cursor-pointer">Diagnóstico (múltiple)</summary>
+                                
+                                <div id="editDiagnosticosCheckbox" class="mt-4 space-y-2 max-h-48 overflow-y-auto border p-3 rounded-md bg-white">
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNT-PAEG" class="mr-2"> RNT-PAEG</label>
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNT-APEG" class="mr-2"> RNT-APEG</label>
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNT-BPEG" class="mr-2"> RNT-BPEG</label>
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPT-PAEG" class="mr-2"> RNPT-PAEG</label>
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPT-BPEG" class="mr-2"> RNPT-BPEG</label>
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPT-APEG" class="mr-2"> RNPT-APEG</text-teal-700</label>
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPOST-PAEG" class="mr-2"> RNPOST-PAEG</label>
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPOST-BPEG" class="mr-2"> RNPOST-BPEG</label>
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPOST-APEG" class="mr-2"> RNPOST-APEG</label>
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="Asfixia neonatal" class="mr-2"> Asfixia neonatal</label>
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="Dif. respiratoria" class="mr-2"> Dif. respiratoria</label>
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="Otros" class="mr-2"> Otros</label>
+                                </div>
+                                <div class="mt-4">
+                                    <label for="editDiagnosticoOtros" class="label">Agregar otro diagnóstico</label>
+                                    <input type="text" id="editDiagnosticoOtros" name="editDiagnosticoOtros" class="input-field" placeholder="Escriba otro...">
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <label for="editNotas" class="label">Notas</label>
+                        <textarea id="editNotas" name="editNotas" rows="4" class="input-field"></textarea>
+                    </div>
+                </section>
+            </form>
+            <div class="modal-footer">
+                <button id="btnCerrarModal" class="btn btn-secondary">Cancelar</button>
+                <button id="btnActualizar" class="btn btn-primary">Actualizar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Mensaje Genérico -->
+    <div id="messageModal" class="modal hidden opacity-0">
+        <div class="modal-content">
+            <h3 id="messageTitle" class="modal-title"></h3>
+            <p id="messageBody" class="modal-body"></p>
+            <div class="modal-footer">
+                <button id="messageOk" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación (para Borrar) -->
+    <div id="confirmModal" class="modal hidden opacity-0">
+        <div class="modal-content">
+            <h3 id="confirmTitle" class="modal-title">Confirmar Acción</h3>
+            <p id="confirmBody" class="modal-body">¿Estás seguro?</p>
+            <div class="modal-footer">
+                <button id="confirmCancel" class="btn btn-secondary">Cancelar</button>
+                <button id="confirmOk" class="btn btn-danger">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Importar Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getFirestore, 
+            collection, 
+            addDoc, 
+            getDocs, 
+            doc, 
+            updateDoc, 
+            deleteDoc, 
+            query, 
+            where,
+            onSnapshot,
+            setLogLevel
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { 
+            getAuth, 
+            signInAnonymously, 
+            signInWithCustomToken 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // ----- Lógica de Modales (Definida primero para evitar errores) -----
+        
+        const messageModal = document.getElementById('messageModal');
+        const messageTitle = document.getElementById('messageTitle');
+        const messageBody = document.getElementById('messageBody');
+        const messageOk = document.getElementById('messageOk');
+
+        function showMessage(title, body) {
+            messageTitle.textContent = title;
+            messageBody.textContent = body;
+            messageModal.classList.remove('hidden');
+            setTimeout(() => messageModal.classList.remove('opacity-0'), 10);
+            setTimeout(() => messageModal.querySelector('.modal-content').classList.remove('scale-95'), 10);
+        }
+        messageOk.onclick = () => {
+            messageModal.classList.add('opacity-0');
+            messageModal.querySelector('.modal-content').classList.add('scale-95');
+            setTimeout(() => messageModal.classList.add('hidden'), 300);
+        };
+
+        const confirmModal = document.getElementById('confirmModal');
+        const confirmTitle = document.getElementById('confirmTitle');
+        const confirmBody = document.getElementById('confirmBody');
+        const confirmCancel = document.getElementById('confirmCancel');
+        const confirmOk = document.getElementById('confirmOk');
+        let confirmPromiseResolve = null;
+
+        function showConfirm(title, body) {
+            confirmTitle.textContent = title;
+            confirmBody.textContent = body;
+            confirmModal.classList.remove('hidden');
+            setTimeout(() => confirmModal.classList.remove('opacity-0'), 10);
+            setTimeout(() => confirmModal.querySelector('.modal-content').classList.remove('scale-95'), 10);
+
+            return new Promise((resolve) => {
+                confirmPromiseResolve = resolve;
+            });
+        }
+        confirmCancel.onclick = () => {
+            confirmModal.classList.add('opacity-0');
+            confirmModal.querySelector('.modal-content').classList.add('scale-95');
+            setTimeout(() => confirmModal.classList.add('hidden'), 300);
+            if (confirmPromiseResolve) confirmPromiseResolve(false);
+        };
+        confirmOk.onclick = () => {
+            confirmModal.classList.add('opacity-0');
+            confirmModal.querySelector('.modal-content').classList.add('scale-95');
+            setTimeout(() => confirmModal.classList.add('hidden'), 300);
+            if (confirmPromiseResolve) confirmPromiseResolve(true);
+        };
+
+        // ===================================================================
+        // !!!!! ¡¡ATENCIÓN!! LEER ESTO PARA IMPLEMENTAR EN TU SERVIDOR !!!!!
+        // ===================================================================
+        //
+        // La configuración de Firebase (`firebaseConfig`) que ves abajo es
+        // SÓLO UN EJEMPLO y no funcionará.
+        //
+        // PASO 1: VE A https://firebase.google.com/ Y CREA UN NUEVO PROYECTO.
+        //
+        // PASO 2: EN TU PROYECTO, CREA UNA "WEB APP" Y COPIA EL OBJETO
+        //         `firebaseConfig` QUE TE DARÁN.
+        //
+        // PASO 3: REEMPLAZA EL BLOQUE `firebaseConfig` DE EJEMPLO DE AQUÍ ABAJO
+        //         CON EL TUYO REAL.
+        //
+        // !!!!! PEGA TU CÓDIGO DE FIREBASE AQUÍ ABAJO !!!!!
+        // ===================================================================
+
+        const firebaseConfig = {
+          // !! REEMPLAZA ESTO CON TU CONFIGURACIÓN REAL !!
+          const firebaseConfig = {
+  apiKey: "AIzaSyAv3gGv-t00ZxNC8678xYCbBdIRPEjW9TY",
+  authDomain: "neonacimientos.firebaseapp.com",
+  projectId: "neonacimientos",
+  storageBucket: "neonacimientos.firebasestorage.app",
+  messagingSenderId: "543451053150",
+  appId: "1:543451053150:web:ae78f34c7fbcc0b6a348cf"
+};"
+          // !! FIN DE LA ZONA DE REEMPLAZO !!
+        };
+
+        // ===================================================================
+        // !!!!! ¡¡ATENCIÓN!! PASO FINAL DE SEGURIDAD (MUY IMPORTANTE) !!!!!
+        // ===================================================================
+        //
+        // PASO 4: EN TU PANEL DE FIREBASE, VE A Firestore Database -> Rules (Reglas).
+        //
+        // PASO 5: REEMPLAZA LAS REGLAS QUE VEAS CON ESTAS:
+        /*
+            rules_version = '2';
+            service cloud.firestore {
+              match /databases/{database}/documents {
+                // Permitir que cualquiera lea o escriba en la colección de pacientes.
+                // Esto es necesario para que "todos los que ingresen a la web" puedan consultar.
+                match /pacientes/{pacienteId} {
+                  allow read, write: if true;
+                }
+              }
+            }
+        */
+        //
+        // PASO 6: PRESIONA "PUBLICAR".
+        //
+        // SI NO HACES ESTOS PASOS, LA APP MOSTRARÁ EL "ERROR CRÍTICO".
+        // ===================================================================
+
+
+        // ----- Variables Globales -----
+        let db, auth;
+        let pacientesCache = []; // Caché para guardar todos los pacientes
+        let vistaActualPacientes = []; // Para la exportación filtrada
+        const coleccionPacientes = "pacientes";
+        const loadingIndicator = document.getElementById('loadingIndicator');
+
+        // ----- Lógica de Pestañas -----
+        const tabButtons = [
+            { btn: document.getElementById('tab-ingreso-btn'), content: document.getElementById('tab-ingreso-content') },
+            { btn: document.getElementById('tab-consulta-btn'), content: document.getElementById('tab-consulta-content') }
+        ];
+
+        tabButtons.forEach(tab => {
+            tab.btn.addEventListener('click', () => {
+                // Ocultar todo
+                tabButtons.forEach(t => {
+                    t.content.classList.add('hidden');
+                    t.btn.classList.remove('active-tab');
+                    t.btn.classList.add('inactive-tab');
+                    t.btn.classList.remove('border-b-2', 'border-teal-700', '-mb-px', 'text-teal-700', 'font-semibold');
+                    t.btn.classList.add('text-gray-500', 'hover:text-teal-700');
+                });
+                // Mostrar activo
+                tab.content.classList.remove('hidden');
+                tab.btn.classList.add('active-tab');
+                tab.btn.classList.remove('inactive-tab');
+                tab.btn.classList.add('border-b-2', 'border-teal-700', '-mb-px', 'text-teal-700', 'font-semibold');
+            });
+        });
+
+        // ----- Inicialización de Firebase -----
+        async function initFirebase() {
+            try {
+                // Usar configuración mágica si existe, sino la manual
+                const configToUse = typeof __firebase_config !== 'undefined' 
+                    ? JSON.parse(__firebase_config) 
+                    : firebaseConfig;
+
+                // Validar que la configuración manual no sea la de ejemplo
+                if (configToUse.apiKey === "TU_API_KEY_VA_AQUI") {
+                    throw new Error("Configuración de Firebase no reemplazada.");
+                }
+
+                const app = initializeApp(configToUse);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                setLogLevel('Debug'); // Útil para depurar
+
+                // Autenticación (con token si existe, sino anónimo)
+                if (typeof __initial_auth_token !== 'undefined') {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                console.log("Firebase inicializado y autenticado.");
+                return true;
+
+            } catch (error) {
+                console.error("Error crítico al inicializar Firebase:", error);
+                showMessage("Error Crítico", "No se pudo inicializar la aplicación. Verifique la configuración de Firebase en el código. (Error: " + error.message + ")");
+                loadingIndicator.textContent = "Error al cargar. Verifique la configuración.";
+                return false;
+            }
+        }
+
+        // ----- Lógica de Formulario de Ingreso -----
+        const formIngreso = document.getElementById('formIngreso');
+        formIngreso.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnGuardar');
+            btn.disabled = true;
+            btn.textContent = "Guardando...";
+
+            try {
+                const formData = new FormData(formIngreso);
+                const data = Object.fromEntries(formData.entries());
+                
+                // Recolectar diagnósticos
+                const diagnosticos = [];
+                formIngreso.querySelectorAll('input[name="diagnostico"]:checked').forEach(cb => {
+                    diagnosticos.push(cb.value);
+                });
+                data.diagnosticos = diagnosticos; // Guardar como array
+
+                // Limpiar 'diagnostico' individual que FormData toma por error
+                delete data.diagnostico;
+
+                // Añadir timestamp
+                data.createdAt = new Date().toISOString();
+
+                await addDoc(collection(db, coleccionPacientes), data);
+                
+                showMessage("Éxito", "Paciente guardado correctamente.");
+                formIngreso.reset();
+                // Cerrar menús desplegables
+                formIngreso.querySelectorAll('details').forEach(d => d.removeAttribute('open'));
+
+            } catch (error) {
+                console.error("Error al guardar:", error);
+                showMessage("Error", "No se pudo guardar el paciente. " + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Guardar Paciente";
+            }
+        });
+
+        // ----- Lógica de Consulta y Búsqueda -----
+        
+        // Escuchar cambios en tiempo real
+        function escucharPacientes() {
+            loadingIndicator.textContent = "Cargando pacientes...";
+            const q = query(collection(db, coleccionPacientes));
+            
+            onSnapshot(q, (snapshot) => {
+                pacientesCache = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                pacientesCache.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Más nuevos primero
+                loadingIndicator.textContent = "";
+                // No mostrar nada por defecto, solo cargar en caché
+                renderTablaResultados([]); // Inicia vacía
+                console.log(`Caché actualizado: ${pacientesCache.length} pacientes.`);
+                
+            }, (error) => {
+                console.error("Error al escuchar pacientes:", error);
+                loadingIndicator.textContent = "Error al cargar datos.";
+                showMessage("Error de Carga", "No se pudieron cargar los datos en tiempo real. " + error.message);
+            });
+        }
+
+        // Renderizar la tabla
+        function renderTablaResultados(pacientes) {
+            vistaActualPacientes = pacientes; // Actualizar vista para exportación
+            const container = document.getElementById('resultadosContainer');
+            
+            if (pacientes.length === 0) {
+                container.innerHTML = '<p class="text-center text-gray-500 py-4">No se encontraron resultados.</p>';
+                return;
+            }
+
+            let tableHtml = `
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="table-header">Apellido y Nombre</th>
+                            <th scope="col" class="table-header">Fecha Nac.</th>
+                            <th scope="col" class="table-header">Peso (gr)</th>
+                            <th scope="col" class="table-header">EG (sem)</th>
+                            <th scope="col" class="table-header">Diagnósticos</th>
+                            <th scope="col" class="table-header">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+            `;
+
+            pacientes.forEach(p => {
+                const diagnosticos = Array.isArray(p.diagnosticos) ? p.diagnosticos.join(', ') : (p.diagnosticoOtros || 'N/A');
+                tableHtml += `
+                    <tr>
+                        <td class="table-cell">${p.apellido || ''}, ${p.nombre || ''}</td>
+                        <td class="table-cell">${p.fechaNacimiento || 'N/A'}</td>
+                        <td class="table-cell">${p.pesoNacer || 'N/A'}</td>
+                        <td class="table-cell">${p.edadGestacional || 'N/A'}</td>
+                        <td class="table-cell">${diagnosticos}</td>
+                        <td class="table-cell space-x-2">
+                            <button class="btn-edit" data-id="${p.id}">Editar</button>
+                            <button class="btn-delete" data-id="${p.id}">Borrar</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tableHtml += `</tbody></table>`;
+            container.innerHTML = tableHtml;
+
+            // Añadir listeners a los botones de la tabla
+            container.querySelectorAll('.btn-edit').forEach(btn => {
+                btn.addEventListener('click', () => abrirModalEdicion(btn.dataset.id));
+            });
+            container.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', () => borrarPaciente(btn.dataset.id));
+            });
+        }
+
+        // Lógica de botones de búsqueda
+        const btnBuscar = document.getElementById('btnBuscar');
+        const btnLimpiar = document.getElementById('btnLimpiar');
+        
+        btnBuscar.addEventListener('click', () => {
+            const apellido = document.getElementById('buscarApellido').value.toLowerCase().trim();
+            const fechaDesde = document.getElementById('fechaDesde').value;
+            const fechaHasta = document.getElementById('fechaHasta').value;
+
+            let filtrados = pacientesCache;
+
+            if (apellido) {
+                filtrados = filtrados.filter(p => p.apellido && p.apellido.toLowerCase().includes(apellido));
+            }
+            if (fechaDesde) {
+                filtrados = filtrados.filter(p => p.fechaNacimiento && p.fechaNacimiento >= fechaDesde);
+            }
+            if (fechaHasta) {
+                filtrados = filtrados.filter(p => p.fechaNacimiento && p.fechaNacimiento <= fechaHasta);
+            }
+            
+            // Si no hay filtros, mostrar todos
+            if (!apellido && !fechaDesde && !fechaHasta) {
+                 filtrados = [...pacientesCache];
+            }
+
+            renderTablaResultados(filtrados);
+        });
+
+        btnLimpiar.addEventListener('click', () => {
+            document.getElementById('buscarApellido').value = '';
+            document.getElementById('fechaDesde').value = '';
+            document.getElementById('fechaHasta').value = '';
+            renderTablaResultados([]); // Limpiar la tabla
+        });
+
+
+        // ----- Lógica de Edición y Borrado -----
+        
+        const editModal = document.getElementById('editModal');
+        const modalContent = editModal.querySelector('.modal-content');
+
+        function abrirModalEdicion(id) {
+            const paciente = pacientesCache.find(p => p.id === id);
+            if (!paciente) return;
+
+            // Rellenar el formulario de edición
+            document.getElementById('editDocId').value = paciente.id;
+            document.getElementById('editApellido').value = paciente.apellido || '';
+            document.getElementById('editNombre').value = paciente.nombre || '';
+            document.getElementById('editFechaNacimiento').value = paciente.fechaNacimiento || '';
+            document.getElementById('editHoraNacimiento').value = paciente.horaNacimiento || '';
+            document.getElementById('editEdadMaterna').value = paciente.edadMaterna || '';
+            document.getElementById('editGestas').value = paciente.gestas || '';
+            document.getElementById('editPartos').value = paciente.partos || '';
+            document.getElementById('editControlada').value = paciente.controlada || '';
+            document.getElementById('editControles').value = paciente.controles || '';
+            
+            // Serología
+            document.getElementById('editFechaVDRL').value = paciente.fechaVDRL || '';
+            document.getElementById('editResultadoVDRL').value = paciente.resultadoVDRL || '';
+            document.getElementById('editFechaHIV').value = paciente.fechaHIV || '';
+            document.getElementById('editResultadoHIV').value = paciente.resultadoHIV || '';
+            document.getElementById('editFechaChagas').value = paciente.fechaChagas || '';
+            document.getElementById('editResultadoChagas').value = paciente.resultadoChagas || '';
+            document.getElementById('editFechaHBV').value = paciente.fechaHBV || '';
+            document.getElementById('editResultadoHBV').value = paciente.resultadoHBV || '';
+            document.getElementById('editFechaToxo').value = paciente.fechaToxo || '';
+            document.getElementById('editResultadoToxo').value = paciente.resultadoToxo || '';
+            document.getElementById('editFechaCMV').value = paciente.fechaCMV || '';
+            document.getElementById('editResultadoCMV').value = paciente.resultadoCMV || '';
+            document.getElementById('editNotasSerologia').value = paciente.notasSerologia || '';
+
+            // Nacimiento
+            document.getElementById('editPesoNacer').value = paciente.pesoNacer || '';
+            document.getElementById('editTalla').value = paciente.talla || '';
+            document.getElementById('editPerimetroCefalico').value = paciente.perimetroCefalico || '';
+            document.getElementById('editEdadGestacional').value = paciente.edadGestacional || '';
+            document.getElementById('editApgar1').value = paciente.apgar1 || '';
+            document.getElementById('editApgar5').value = paciente.apgar5 || '';
+            document.getElementById('editTipoNacimiento').value = paciente.tipoNacimiento || '';
+
+            // Grupo
+            document.getElementById('editGrupoMaterno').value = paciente.grupoMaterno || '';
+            document.getElementById('editRhMaterno').value = paciente.rhMaterno || '';
+            document.getElementById('editGrupoPaciente').value = paciente.grupoPaciente || '';
+            document.getElementById('editRhPaciente').value = paciente.rhPaciente || '';
+
+            // Diagnóstico y Evolución
+            document.getElementById('editEvolucion').value = paciente.evolucion || '';
+            document.getElementById('editNotas').value = paciente.notas || '';
+            document.getElementById('editDiagnosticoOtros').value = paciente.diagnosticoOtros || '';
+
+            // Diagnósticos (Checkboxes)
+            const checks = document.querySelectorAll('input[name="editDiagnostico"]');
+            checks.forEach(cb => cb.checked = false); // Limpiar
+            if (Array.isArray(paciente.diagnosticos)) {
+                paciente.diagnosticos.forEach(diag => {
+                    const cb = document.querySelector(`input[name="editDiagnostico"][value="${diag}"]`);
+                    if (cb) cb.checked = true;
+                });
+            }
+
+            // Mostrar modal
+            editModal.classList.remove('hidden');
+            setTimeout(() => editModal.classList.remove('opacity-0'), 10);
+            setTimeout(() => modalContent.classList.remove('opacity-0', 'scale-95'), 10);
+        }
+
+        document.getElementById('btnCerrarModal').addEventListener('click', () => {
+            editModal.classList.add('opacity-0');
+            modalContent.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => editModal.classList.add('hidden'), 300);
+        });
+
+        document.getElementById('btnActualizar').addEventListener('click', async () => {
+            const btn = document.getElementById('btnActualizar');
+            btn.disabled = true;
+            btn.textContent = "Actualizando...";
+
+            try {
+                const formEdicion = document.getElementById('formEdicion');
+                const formData = new FormData(formEdicion);
+                const data = Object.fromEntries(formData.entries());
+                const docId = data.editDocId;
+
+                if (!docId) throw new Error("ID de documento no encontrado.");
+
+                // Recolectar diagnósticos
+                const diagnosticos = [];
+                formEdicion.querySelectorAll('input[name="editDiagnostico"]:checked').forEach(cb => {
+                    diagnosticos.push(cb.value);
+                });
+                data.diagnosticos = diagnosticos; // Guardar como array
+
+                // Limpiar campos 'edit' que no queremos guardar
+                delete data.editDiagnostico;
+                delete data.editDocId;
+
+                const docRef = doc(db, coleccionPacientes, docId);
+                await updateDoc(docRef, data);
+
+                showMessage("Éxito", "Paciente actualizado.");
+                document.getElementById('btnCerrarModal').click(); // Cerrar modal
+                
+                // Forzar re-renderizado de la búsqueda actual
+                btnBuscar.click();
+
+            } catch (error) {
+                console.error("Error al actualizar:", error);
+                showMessage("Error", "No se pudo actualizar el paciente. " + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Actualizar";
+            }
+        });
+
+        async function borrarPaciente(id) {
+            const confirmado = await showConfirm("Confirmar Borrado", "¿Estás seguro de que deseas borrar este paciente? Esta acción no se puede deshacer.");
+            
+            if (confirmado) {
+                try {
+                    await deleteDoc(doc(db, coleccionPacientes, id));
+                    showMessage("Éxito", "Paciente borrado.");
+                    // Forzar re-renderizado de la búsqueda actual
+                    btnBuscar.click();
+                } catch (error) {
+                    console.error("Error al borrar:", error);
+                    showMessage("Error", "No se pudo borrar el paciente. " + error.message);
+                }
+            }
+        }
+
+
+        // ----- Lógica de Exportación a CSV -----
+
+        function exportarACSV(pacientes, nombreArchivo) {
+            if (pacientes.length === 0) {
+                showMessage("Exportar", "No hay datos para exportar.");
+                return;
+            }
+
+            // Crear encabezados dinámicamente desde el primer objeto
+            const primerPaciente = pacientes[0];
+            let headers = Object.keys(primerPaciente);
+            
+            // Filtrar claves no deseadas (como 'id' o 'createdAt')
+            headers = headers.filter(h => h !== 'id' && h !== 'createdAt');
+            // Poner claves importantes primero
+            const ordenColumnas = [
+                'apellido', 'nombre', 'fechaNacimiento', 'horaNacimiento', 'pesoNacer', 'talla', 'perimetroCefalico', 'edadGestacional', 
+                'apgar1', 'apgar5', 'tipoNacimiento', 'evolucion', 'diagnosticos', 'diagnosticoOtros', 'notas',
+                'edadMaterna', 'gestas', 'partos', 'controlada', 'controles',
+                'grupoMaterno', 'rhMaterno', 'grupoPaciente', 'rhPaciente',
+                'fechaVDRL', 'resultadoVDRL', 'fechaHIV', 'resultadoHIV', 'fechaChagas', 'resultadoChagas',
+                'fechaHBV', 'resultadoHBV', 'fechaToxo', 'resultadoToxo', 'fechaCMV', 'resultadoCMV', 'notasSerologia'
+            ];
+            
+            // Combinar orden deseado con claves restantes
+            const headersOrdenados = [...ordenColumnas, ...headers.filter(h => !ordenColumnas.includes(h))];
+
+            let csvContent = headersOrdenados.join(';') + '\n'; // Usar punto y coma para Excel en español
+
+            pacientes.forEach(p => {
+                const fila = headersOrdenados.map(header => {
+                    let valor = p[header];
+                    if (valor === undefined || valor === null) {
+                        return '';
+                    }
+                    if (Array.isArray(valor)) {
+                        return `"${valor.join(', ')}"`; // Manejar arrays (ej. diagnósticos)
+                    }
+                    if (typeof valor === 'string') {
+                        // Escapar comillas dobles y strings que contienen el separador
+                        valor = valor.replace(/"/g, '""');
+                        if (valor.includes(';') || valor.includes('\n') || valor.includes(',')) {
+                            return `"${valor}"`;
+                        }
+                    }
+                    return valor;
+                });
+                csvContent += fila.join(';') + '\n';
+            });
+
+            // Crear y descargar el archivo
+            const blob = new Blob([`\uFEFF${csvContent}`], { type: 'text/csv;charset=utf-8;' }); // \uFEFF para BOM (Byte Order Mark)
+            const link = document.createElement('a');
+            if (link.download !== undefined) {
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', `${nombreArchivo}.csv`);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        document.getElementById('btnExportarFiltrado').addEventListener('click', () => {
+            exportarACSV(vistaActualPacientes, 'pacientes_filtrados');
+        });
+
+        document.getElementById('btnExportarTodo').addEventListener('click', () => {
+            exportarACSV(pacientesCache, 'pacientes_todos');
+        });
+
+
+        // ----- Punto de Entrada Principal -----
+        (async () => {
+            const firebaseListo = await initFirebase();
+            if (firebaseListo) {
+                escucharPacientes();
+            }
+        })();
+
+    </script>
+</body>
+</html>
