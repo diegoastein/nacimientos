@@ -88,15 +88,14 @@ confirmOk.onclick = () => {
 // ===================================================================
 
 const firebaseConfig = {
-  // !! REEMPLAZA ESTO CON TU CONFIGURACIÓN REAL !!
   const firebaseConfig = {
- apiKey: "AIzaSyAv3gGv-t00ZxNC8678xYCbBdIRPEjW9TY",
- authDomain: "neonacimientos.firebaseapp.com",
- projectId: "neonacimientos",
- storageBucket: "neonacimientos.firebasestorage.app",
- messagingSenderId: "543451053150",
- appId: "1:543451053150:web:ae78f34c7fbcc0b6a348cf"
-};"
+  apiKey: "AIzaSyAv3gGv-t00ZxNC8678xYCbBdIRPEjW9TY",
+  authDomain: "neonacimientos.firebaseapp.com",
+  projectId: "neonacimientos",
+  storageBucket: "neonacimientos.firebasestorage.app",
+  messagingSenderId: "543451053150",
+  appId: "1:543451053150:web:ae78f34c7fbcc0b6a348cf"
+};
   // !! FIN DE LA ZONA DE REEMPLAZO !!
 };
 
