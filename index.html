@@ -6,18 +6,16 @@
     <title>Registro Neonatal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        <link rel="stylesheet" href="style.css">
-    </style>
+    
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
     <div class="container mx-auto p-4 sm:p-6 lg:p-8">
-        <!-- Encabezado -->
         <header class="mb-6">
             <h1 class="text-3xl font-bold text-teal-700">Registro de Pacientes Neonatales</h1>
         </header>
 
-        <!-- Pestañas -->
         <div class="mb-6">
             <div class="border-b border-gray-200">
                 <nav class="-mb-px flex space-x-2" aria-label="Tabs">
@@ -27,13 +25,10 @@
             </div>
         </div>
 
-        <!-- Contenido de Pestañas -->
         <div>
-            <!-- PESTAÑA 1: INGRESO DE PACIENTE -->
             <div id="tab-ingreso-content">
                 <form id="formIngreso" class="space-y-6 bg-white p-6 rounded-lg shadow-md">
-                    
-                    <!-- Sección de Datos Personales -->
+                
                     <section>
                         <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Datos del Paciente</h2>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -56,7 +51,6 @@
                         </div>
                     </section>
 
-                    <!-- Sección de Datos Maternos -->
                     <section>
                         <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Datos Maternos</h2>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -87,12 +81,10 @@
                         </div>
                     </section>
 
-                    <!-- Sección de Serología (Colapsada) -->
                     <section>
                         <details class="bg-gray-50 p-4 rounded-lg border">
                             <summary class="text-lg font-semibold text-teal-700 cursor-pointer">Serología</summary>
                             <div class="mt-4 space-y-4">
-                                <!-- VDRL -->
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
                                     <label class="label">VDRL</label>
                                     <input type="date" id="fechaVDRL" name="fechaVDRL" class="input-field" title="Fecha VDRL">
@@ -102,7 +94,6 @@
                                         <option value="-">-</option>
                                     </select>
                                 </div>
-                                <!-- HIV -->
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
                                     <label class="label">HIV</label>
                                     <input type="date" id="fechaHIV" name="fechaHIV" class="input-field" title="Fecha HIV">
@@ -112,7 +103,6 @@
                                         <option value="-">-</option>
                                     </select>
                                 </div>
-                                <!-- Chagas -->
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
                                     <label class="label">Chagas</label>
                                     <input type="date" id="fechaChagas" name="fechaChagas" class="input-field" title="Fecha Chagas">
@@ -122,7 +112,6 @@
                                         <option value="-">-</option>
                                     </select>
                                 </div>
-                                <!-- HBV -->
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
                                     <label class="label">HBV</label>
                                     <input type="date" id="fechaHBV" name="fechaHBV" class="input-field" title="Fecha HBV">
@@ -132,7 +121,6 @@
                                         <option value="-">-</option>
                                     </select>
                                 </div>
-                                <!-- Toxoplasmosis -->
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
                                     <label class="label">Toxoplasmosis</label>
                                     <input type="date" id="fechaToxo" name="fechaToxo" class="input-field" title="Fecha Toxoplasmosis">
@@ -142,7 +130,6 @@
                                         <option value="-">-</option>
                                     </select>
                                 </div>
-                                <!-- CMV -->
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
                                     <label class="label">CMV</label>
                                     <input type="date" id="fechaCMV" name="fechaCMV" class="input-field" title="Fecha CMV">
@@ -152,7 +139,6 @@
                                         <option value="-">-</option>
                                     </select>
                                 </div>
-                                <!-- Notas Serología -->
                                 <div class="col-span-1 sm:col-span-3">
                                     <label for="notasSerologia" class="label">Notas Serología</label>
                                     <textarea id="notasSerologia" name="notasSerologia" rows="2" class="input-field"></textarea>
@@ -161,7 +147,6 @@
                         </details>
                     </section>
 
-                    <!-- Sección de Datos del Nacimiento -->
                     <section>
                         <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Datos del Nacimiento</h2>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -200,7 +185,6 @@
                         </div>
                     </section>
 
-                    <!-- Sección de Grupo y Rh -->
                     <section>
                         <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Grupo Sanguíneo</h2>
                          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -243,12 +227,10 @@
                         </div>
                     </section>
 
-                    <!-- Sección de Diagnóstico y Evolución -->
                     <section>
                         <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Diagnóstico y Evolución</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             
-                            <!-- Evolución -->
                             <div class="space-y-4">
                                 <div>
                                     <label class="label">Evolución</label>
@@ -260,7 +242,6 @@
                                 </div>
                             </div>
 
-                            <!-- Diagnósticos (Colapsado) -->
                             <div>
                                 <details class="bg-gray-50 p-4 rounded-lg border">
                                     <summary class="text-lg font-semibold text-teal-700 cursor-pointer">Diagnóstico (múltiple)</summary>
@@ -271,7 +252,7 @@
                                         <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNT-BPEG" class="mr-2"> RNT-BPEG</label>
                                         <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPT-PAEG" class="mr-2"> RNPT-PAEG</label>
                                         <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPT-BPEG" class="mr-2"> RNPT-BPEG</label>
-                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPT-APEG" class="mr-2"> RNPT-APEG</text-teal-700</label>
+                                        <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPT-APEG" class="mr-2"> RNPT-APEG</label>
                                         <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPOST-PAEG" class="mr-2"> RNPOST-PAEG</label>
                                         <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPOST-BPEG" class="mr-2"> RNPOST-BPEG</label>
                                         <label class="flex items-center"><input type="checkbox" name="diagnostico" value="RNPOST-APEG" class="mr-2"> RNPOST-APEG</label>
@@ -287,14 +268,12 @@
                             </div>
                         </div>
 
-                        <!-- Notas (ancho completo) -->
                         <div class="mt-6">
                             <label for="notas" class="label">Notas</label>
                             <textarea id="notas" name="notas" rows="4" class="input-field"></textarea>
                         </div>
                     </section>
 
-                    <!-- Botón de Guardar -->
                     <div class="pt-4 border-t text-right">
                         <button type="submit" id="btnGuardar" class="btn btn-primary">
                             Guardar Paciente
@@ -303,10 +282,8 @@
                 </form>
             </div>
 
-            <!-- PESTAÑA 2: CONSULTA Y EDICIÓN -->
             <div id="tab-consulta-content" class="hidden">
                 <div class="space-y-8">
-                    <!-- Sección de Búsqueda -->
                     <section class="bg-white p-6 rounded-lg shadow-md">
                         <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Buscar Pacientes</h2>
                         <div class="flex flex-wrap gap-4 items-end">
@@ -331,40 +308,35 @@
                         </div>
                     </section>
 
-                    <!-- Opciones de Exportación -->
                     <section>
                         <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Exportar Datos</h2>
                         <div class="flex flex-wrap gap-3">
                              <button id="btnExportarFiltrado" class="btn btn-export">
-                                Exportar Vista Actual
+                                 Exportar Vista Actual
                              </button>
                              <button id="btnExportarTodo" class="btn btn-export">
-                                Exportar Todo
+                                 Exportar Todo
                              </button>
                         </div>
                     </section>
 
-                    <!-- Tabla de Resultados -->
                     <section>
                         <h2 class="text-xl font-semibold text-teal-700 border-b pb-2 mb-4">Resultados</h2>
                         <p id="loadingIndicator" class="text-center text-gray-600">Cargando pacientes...</p>
                         <div id="resultadosContainer" class="overflow-x-auto">
-                            <!-- La tabla se generará aquí -->
-                        </div>
+                            </div>
                     </section>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal de Edición -->
     <div id="editModal" class="modal hidden opacity-0">
         <div class="modal-content max-w-4xl opacity-0 scale-95">
             <h2 class="text-2xl font-semibold text-teal-700 mb-4">Editar Paciente</h2>
             <form id="formEdicion" class="space-y-6 max-h-[70vh] overflow-y-auto pr-2">
                 <input type="hidden" id="editDocId" name="editDocId">
                 
-                <!-- Datos Personales -->
                 <section>
                     <h3 class="text-lg font-semibold text-teal-700 border-b pb-2 mb-4">Datos del Paciente</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -375,7 +347,6 @@
                     </div>
                 </section>
 
-                <!-- Datos Maternos -->
                 <section>
                     <h3 class="text-lg font-semibold text-teal-700 border-b pb-2 mb-4">Datos Maternos</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -387,7 +358,6 @@
                     </div>
                 </section>
                 
-                <!-- Serología -->
                 <section>
                     <details class="bg-gray-50 p-4 rounded-lg border" open>
                         <summary class="text-lg font-semibold text-teal-700 cursor-pointer">Serología</summary>
@@ -430,7 +400,6 @@
                     </details>
                 </section>
 
-                <!-- Datos del Nacimiento -->
                 <section>
                     <h3 class="text-lg font-semibold text-teal-700 border-b pb-2 mb-4">Datos del Nacimiento</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -444,7 +413,6 @@
                     </div>
                 </section>
 
-                <!-- Grupo y Rh -->
                 <section>
                     <h3 class="text-lg font-semibold text-teal-700 border-b pb-2 mb-4">Grupo Sanguíneo</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -455,7 +423,6 @@
                     </div>
                 </section>
 
-                <!-- Diagnóstico y Evolución -->
                 <section>
                     <h3 class="text-lg font-semibold text-teal-700 border-b pb-2 mb-4">Diagnóstico y Evolución</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -472,8 +439,7 @@
                         </div>
 
                         <div>
-                            <details class="bg-gray-50 p-4 rounded-lg border" open> <!-- 'open' para que esté abierto al editar -->
-                                <summary class="text-lg font-semibold text-teal-700 cursor-pointer">Diagnóstico (múltiple)</summary>
+                            <details class="bg-gray-50 p-4 rounded-lg border" open> <summary class="text-lg font-semibold text-teal-700 cursor-pointer">Diagnóstico (múltiple)</summary>
                                 
                                 <div id="editDiagnosticosCheckbox" class="mt-4 space-y-2 max-h-48 overflow-y-auto border p-3 rounded-md bg-white">
                                     <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNT-PAEG" class="mr-2"> RNT-PAEG</label>
@@ -481,7 +447,7 @@
                                     <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNT-BPEG" class="mr-2"> RNT-BPEG</label>
                                     <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPT-PAEG" class="mr-2"> RNPT-PAEG</label>
                                     <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPT-BPEG" class="mr-2"> RNPT-BPEG</label>
-                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPT-APEG" class="mr-2"> RNPT-APEG</text-teal-700</label>
+                                    <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPT-APEG" class="mr-2"> RNPT-APEG</label>
                                     <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPOST-PAEG" class="mr-2"> RNPOST-PAEG</label>
                                     <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPOST-BPEG" class="mr-2"> RNPOST-BPEG</label>
                                     <label class="flex items-center"><input type="checkbox" name="editDiagnostico" value="RNPOST-APEG" class="mr-2"> RNPOST-APEG</label>
@@ -510,7 +476,6 @@
         </div>
     </div>
 
-    <!-- Modal de Mensaje Genérico -->
     <div id="messageModal" class="modal hidden opacity-0">
         <div class="modal-content">
             <h3 id="messageTitle" class="modal-title"></h3>
@@ -521,7 +486,6 @@
         </div>
     </div>
 
-    <!-- Modal de Confirmación (para Borrar) -->
     <div id="confirmModal" class="modal hidden opacity-0">
         <div class="modal-content">
             <h3 id="confirmTitle" class="modal-title">Confirmar Acción</h3>
@@ -533,8 +497,7 @@
         </div>
     </div>
 
-    <!-- Importar Firebase -->
-    <script 
-    </script>
+    <script type="module" src="app.js"></script>
+
 </body>
 </html>
