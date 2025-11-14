@@ -59,19 +59,17 @@
                                 <input type="number" id="edadMaterna" name="edadMaterna" class="input-field">
                             </div>
                             <div>
-                                <div>
-    <label for="g" class="label">G (Gestas)</label>
-    <input type="number" id="g" name="g" class="input-field-sm">
-</div>
-<div>
-    <label for="p" class="label">P (Partos)</label>
-    <input type="number" id="p" name="p" class="input-field-sm">
-</div>
-<div>
-    <label for="a" class="label">A (Abortos)</label>
-    <input type="number" id="a" name="a" class="input-field-sm">
-</div>
-                                                            </div>
+                                <label for="g" class="label">G (Gestas)</label>
+                                <input type="number" id="g" name="g" class="input-field-sm">
+                            </div>
+                            <div>
+                                <label for="p" class="label">P (Partos)</label>
+                                <input type="number" id="p" name="p" class="input-field-sm">
+                            </div>
+                            <div>
+                                <label for="a" class="label">A (Abortos)</label>
+                                <input type="number" id="a" name="a" class="input-field-sm">
+                            </div>
                             <div>
                                 <label for="controlada" class="label">Controlada</label>
                                 <select id="controlada" name="controlada" class="input-field">
@@ -91,60 +89,79 @@
                         <details class="bg-gray-50 p-4 rounded-lg border">
                             <summary class="text-lg font-semibold text-teal-700 cursor-pointer">Serología</summary>
                             <div class="mt-4 space-y-4">
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                                     <label class="label">VDRL</label>
-                                    <input type="date" id="fechaVDRL" name="fechaVDRL" class="input-field" title="Fecha VDRL">
-                                    <select id="resultadoVDRL" name="resultadoVDRL" class="input-field" title="Resultado VDRL">
-                                        <option value="">Resultado</option>
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
-                                    </select>
+                                    <div class="input-group">
+                                        <input type="date" id="fechaVDRL" name="fechaVDRL" class="input-field" title="Fecha VDRL">
+                                        <select id="resultadoVDRL" name="resultadoVDRL" class="input-field" title="Resultado VDRL">
+                                            <option value="">Resultado</option>
+                                            <option value="+">+</option>
+                                            <option value="-">-</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                                     <label class="label">HIV</label>
-                                    <input type="date" id="fechaHIV" name="fechaHIV" class="input-field" title="Fecha HIV">
-                                    <select id="resultadoHIV" name="resultadoHIV" class="input-field" title="Resultado HIV">
-                                        <option value="">Resultado</option>
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
-                                    </select>
+                                    <div class="input-group">
+                                        <input type="date" id="fechaHIV" name="fechaHIV" class="input-field" title="Fecha HIV">
+                                        <select id="resultadoHIV" name="resultadoHIV" class="input-field" title="Resultado HIV">
+                                            <option value="">Resultado</option>
+                                            <option value="+">+</option>
+                                            <option value="-">-</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                                     <label class="label">Chagas</label>
-                                    <input type="date" id="fechaChagas" name="fechaChagas" class="input-field" title="Fecha Chagas">
-                                    <select id="resultadoChagas" name="resultadoChagas" class="input-field" title="Resultado Chagas">
-                                        <option value="">Resultado</option>
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
-                                    </select>
+                                    <div class="input-group">
+                                        <input type="date" id="fechaChagas" name="fechaChagas" class="input-field" title="Fecha Chagas">
+                                        <select id="resultadoChagas" name="resultadoChagas" class="input-field" title="Resultado Chagas">
+                                            <option value="">Resultado</option>
+                                            <option value="+">+</option>
+                                            <option value="-">-</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                                     <label class="label">HBV</label>
-                                    <input type="date" id="fechaHBV" name="fechaHBV" class="input-field" title="Fecha HBV">
-                                    <select id="resultadoHBV" name="resultadoHBV" class="input-field" title="Resultado HBV">
-                                        <option value="">Resultado</option>
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
-                                    </select>
+                                    <div class="input-group">
+                                        <input type="date" id="fechaHBV" name="fechaHBV" class="input-field" title="Fecha HBV">
+                                        <select id="resultadoHBV" name="resultadoHBV" class="input-field" title="Resultado HBV">
+                                            <option value="">Resultado</option>
+                                            <option value="+">+</option>
+                                            <option value="-">-</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                                     <label class="label">Toxoplasmosis</label>
-                                    <input type="date" id="fechaToxo" name="fechaToxo" class="input-field" title="Fecha Toxoplasmosis">
-                                    <select id="resultadoToxo" name="resultadoToxo" class="input-field" title="Resultado Toxoplasmosis">
-                                        <option value="">Resultado</option>
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
-                                    </select>
+                                    <div class="input-group">
+                                        <input type="date" id="fechaToxo" name="fechaToxo" class="input-field" title="Fecha Toxoplasmosis">
+                                        <select id="resultadoToxo" name="resultadoToxo" class="input-field" title="Resultado Toxoplasmosis">
+                                            <option value="">Resultado</option>
+                                            <option value="+">+</option>
+                                            <option value="-">-</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                                     <label class="label">CMV</label>
-                                    <input type="date" id="fechaCMV" name="fechaCMV" class="input-field" title="Fecha CMV">
-                                    <select id="resultadoCMV" name="resultadoCMV" class="input-field" title="Resultado CMV">
-                                        <option value="">Resultado</option>
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
-                                    </select>
+                                    <div class="input-group">
+                                        <input type="date" id="fechaCMV" name="fechaCMV" class="input-field" title="Fecha CMV">
+                                        <select id="resultadoCMV" name="resultadoCMV" class="input-field" title="Resultado CMV">
+                                            <option value="">Resultado</option>
+                                            <option value="+">+</option>
+                                            <option value="-">-</option>
+                                        </select>
+                                    </div>
                                 </div>
+                                
                                 <div class="col-span-1 sm:col-span-3">
                                     <label for="notasSerologia" class="label">Notas Serología</label>
                                     <textarea id="notasSerologia" name="notasSerologia" rows="2" class="input-field"></textarea>
@@ -357,9 +374,9 @@
                     <h3 class="text-lg font-semibold text-teal-700 border-b pb-2 mb-4">Datos Maternos</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                         <div><label for="editEdadMaterna" class="label">Edad Materna</label><input type="number" id="editEdadMaterna" name="editEdadMaterna" class="input-field"></div>
-                        <div><label for="editG" class="label">G (Gestas)</label><input type="number" id="editG" name="editG" class="input-field"></div>
-                        <div><label for="editP" class="label">P (Partos)</label><input type="number" id="editP" name="editP" class="input-field"></div>
-                        <div><label for="editA" class="label">A (Abortos)</label><input type="number" id="editA" name="editA" class="input-field"></div>
+                        <div><label for="editG" class="label">G (Gestas)</label><input type="number" id="editG" name="editG" class="input-field-sm"></div>
+                        <div><label for="editP" class="label">P (Partos)</label><input type="number" id="editP" name="editP" class="input-field-sm"></div>
+                        <div><label for="editA" class="label">A (Abortos)</label><input type="number" id="editA" name="editA" class="input-field-sm"></div>
                         <div><label for="editControlada" class="label">Controlada</label><select id="editControlada" name="editControlada" class="input-field"><option value="">Seleccionar</option><option value="si">Sí</option><option value="no">No</option></select></div>
                         <div><label for="editControles" class="label">N° Controles</label><input type="number" id="editControles" name="editControles" class="input-field"></div>
                     </div>
@@ -369,36 +386,55 @@
                     <details class="bg-gray-50 p-4 rounded-lg border" open>
                         <summary class="text-lg font-semibold text-teal-700 cursor-pointer">Serología</summary>
                         <div class="mt-4 space-y-4">
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                                 <label class="label">VDRL</label>
-                                <input type="date" id="editFechaVDRL" name="editFechaVDRL" class="input-field">
-                                <select id="editResultadoVDRL" name="editResultadoVDRL" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                                <div class="input-group">
+                                    <input type="date" id="editFechaVDRL" name="editFechaVDRL" class="input-field">
+                                    <select id="editResultadoVDRL" name="editResultadoVDRL" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                                </div>
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                                 <label class="label">HIV</label>
-                                <input type="date" id="editFechaHIV" name="editFechaHIV" class="input-field">
-                                <select id="editResultadoHIV" name="editResultadoHIV" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                                <div class="input-group">
+                                    <input type="date" id="editFechaHIV" name="editFechaHIV" class="input-field">
+                                    <select id="editResultadoHIV" name="editResultadoHIV" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                                </div>
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                                 <label class="label">Chagas</label>
-                                <input type="date" id="editFechaChagas" name="editFechaChagas" class="input-field">
-                                <select id="editResultadoChagas" name="editResultadoChagas" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                                <div class="input-group">
+                                    <input type="date" id="editFechaChagas" name="editFechaChagas" class="input-field">
+                                    <select id="editResultadoChagas" name="editResultadoChagas" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                                </div>
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                                 <label class="label">HBV</label>
-                                <input type="date" id="editFechaHBV" name="editFechaHBV" class="input-field">
-                                <select id="editResultadoHBV" name="editResultadoHBV" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                                <div class="input-group">
+                                    <input type="date" id="editFechaHBV" name="editFechaHBV" class="input-field">
+                                    <select id="editResultadoHBV" name="editResultadoHBV" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                                </div>
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                                 <label class="label">Toxoplasmosis</label>
-                                <input type="date" id="editFechaToxo" name="editFechaToxo" class="input-field">
-                                <select id="editResultadoToxo" name="editResultadoToxo" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                                <div class="input-group">
+                                    <input type="date" id="editFechaToxo" name="editFechaToxo" class="input-field">
+                                    <select id="editResultadoToxo" name="editResultadoToxo" class="input-field"><option value="">Resultado</a</option><option value="+">+</option><option value="-">-</option></select>
+                                </div>
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                                 <label class="label">CMV</label>
-                                <input type="date" id="editFechaCMV" name="editFechaCMV" class="input-field">
-                                <select id="editResultadoCMV" name="editResultadoCMV" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                                <div class="input-group">
+                                    <input type="date" id="editFechaCMV" name="editFechaCMV" class="input-field">
+                                    <select id="editResultadoCMV" name="editResultadoCMV" class="input-field"><option value="">Resultado</option><option value="+">+</option><option value="-">-</option></select>
+                                </div>
                             </div>
+
                              <div class="col-span-1 sm:col-span-3">
                                 <label for="editNotasSerologia" class="label">Notas Serología</label>
                                 <textarea id="editNotasSerologia" name="editNotasSerologia" rows="2" class="input-field"></textarea>
