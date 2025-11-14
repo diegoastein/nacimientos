@@ -1,14 +1,13 @@
 body {
     font-family: 'Inter', sans-serif;
-    /* MODIFICADO: Fondo de página más suave */
     @apply bg-slate-100;
 }
 .container {
     max-width: 1200px;
 }
 .input-field {
-    /* MODIFICADO: Fondo claro para que se vea, y foco en indigo */
-    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-white transition-colors duration-200;
+    /* MODIFICADO: Fondo más oscuro (slate-100) y borde más grueso (slate-300) */
+    @apply w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-white transition-colors duration-200;
 }
 .label {
     @apply block text-sm font-medium text-gray-700 min-w-[100px];
@@ -17,35 +16,35 @@ body {
     @apply py-3 px-5 font-medium text-sm sm:text-base rounded-t-lg transition-colors duration-200 border-b-2 border-transparent;
 }
 .active-tab {
-    /* MODIFICADO: Color de acento a indigo */
-    @apply border-b-2 border-indigo-700 -mb-px text-indigo-700 font-semibold;
+    /* MODIFICADO: Volvemos a Teal */
+    @apply border-b-2 border-teal-600 -mb-px text-teal-600 font-semibold;
 }
 .inactive-tab {
-    /* MODIFICADO: Color de acento a indigo */
-    @apply text-gray-500 hover:text-indigo-700;
+    /* MODIFICADO: Volvemos a Teal */
+    @apply text-gray-500 hover:text-teal-600;
 }
 .btn {
-    @apply px-4 py-2 rounded-md font-semibold text-sm shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply px-4 py-2 rounded-md font-semibold text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
 }
 .btn-primary {
-    /* MODIFICADO: Color de acento a indigo */
-    @apply bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500;
+    /* MODIFICADO: Volvemos a Teal y agregamos "relieve" (shadow-md y active:) */
+    @apply bg-teal-600 text-white hover:bg-teal-700 focus:ring-teal-500 shadow-md hover:shadow-lg active:bg-teal-800 active:shadow-sm active:translate-y-px;
 }
 .btn-secondary {
-    @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400;
+    @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400 shadow-sm active:translate-y-px;
 }
 .btn-danger {
-    @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+    @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 shadow-md hover:shadow-lg active:bg-red-800 active:shadow-sm active:translate-y-px;
 }
 .btn-edit {
-    @apply bg-blue-500 text-white hover:bg-blue-600 px-3 py-1 text-xs rounded-md;
+    @apply bg-blue-500 text-white hover:bg-blue-600 px-3 py-1 text-xs rounded-md shadow-sm active:translate-y-px;
 }
 .btn-delete {
-    @apply bg-red-500 text-white hover:bg-red-600 px-3 py-1 text-xs rounded-md;
+    @apply bg-red-500 text-white hover:bg-red-600 px-3 py-1 text-xs rounded-md shadow-sm active:translate-y-px;
 }
 .btn-export {
-    /* MODIFICADO: Color de acento a indigo */
-    @apply bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500;
+    /* MODIFICADO: Volvemos a Teal y agregamos "relieve" */
+    @apply bg-teal-600 text-white hover:bg-teal-700 focus:ring-teal-500 shadow-md hover:shadow-lg active:bg-teal-800 active:shadow-sm active:translate-y-px;
 }
 .table-header {
     @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
@@ -71,8 +70,8 @@ body {
 
 /* Clases de usabilidad (Inputs chicos y grupos) */
 .input-field-sm {
-    /* MODIFICADO: Fondo claro para que se vea, y foco en indigo */
-    @apply w-24 px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-white transition-colors duration-200;
+    /* MODIFICADO: Fondo más oscuro (slate-100) y borde más grueso (slate-300) */
+    @apply w-24 px-3 py-2 border border-slate-300 rounded-md shadow-sm bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-white transition-colors duration-200;
 }
 .input-group {
     @apply flex space-x-2;
