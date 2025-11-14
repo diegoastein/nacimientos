@@ -200,7 +200,6 @@ formIngreso.addEventListener('submit', async (e) => {
         }
 
         // --- 2. VALIDACIÓN Y CONVERSIÓN DE NÚMEROS ---
-        // MODIFICADO: Sacamos 'gestas' y 'partos', agregamos 'g', 'p', 'a'
         const camposNumericos = ['pesoNacer', 'talla', 'perimetroCefalico', 'edadGestacional', 'apgar1', 'apgar5', 'edadMaterna', 'g', 'p', 'a', 'controles'];
         
         for (const campo of camposNumericos) {
@@ -260,7 +259,11 @@ function escucharPacientes() {
         pacientesCache.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Más nuevos primero
         loadingIndicator.textContent = "";
         
-        renderTablaResultados(pacientesCache); 
+        // ==========================================================
+        // ===== ¡¡¡AQUÍ ESTÁ LA CORRECCIÓN!!! =====
+        // La pestaña de consulta arranca vacía, como pediste.
+        renderTablaResultados([]); 
+        // ==========================================================
         
         console.log(`Caché actualizado: ${pacientesCache.length} pacientes.`);
         
@@ -360,8 +363,11 @@ btnLimpiar.addEventListener('click', () => {
     document.getElementById('fechaDesde').value = '';
     document.getElementById('fechaHasta').value = '';
     
-    // Al limpiar, mostramos todos los pacientes de nuevo
-    renderTablaResultados(pacientesCache); 
+    // ==========================================================
+    // ===== ¡¡¡AQUÍ ESTÁ LA SEGUNDA CORRECCIÓN!!! =====
+    // Al limpiar, también vaciamos la tabla de resultados.
+    renderTablaResultados([]); 
+    // ==========================================================
 });
 
 
@@ -381,7 +387,6 @@ function abrirModalEdicion(id) {
     document.getElementById('editFechaNacimiento').value = paciente.fechaNacimiento || '';
     document.getElementById('editHoraNacimiento').value = paciente.horaNacimiento || '';
     
-    // MODIFICADO: Cambiado a 'g', 'p', 'a'
     document.getElementById('editEdadMaterna').value = paciente.edadMaterna || '';
     document.getElementById('editG').value = paciente.g || '';
     document.getElementById('editP').value = paciente.p || '';
@@ -475,7 +480,6 @@ document.getElementById('btnActualizar').addEventListener('click', async () => {
         }
 
         // --- 3. VALIDACIÓN Y CONVERSIÓN DE NÚMEROS ---
-        // MODIFICADO: Sacamos 'gestas' y 'partos', agregamos 'g', 'p', 'a'
         const camposNumericos = ['pesoNacer', 'talla', 'perimetroCefalico', 'edadGestacional', 'apgar1', 'apgar5', 'edadMaterna', 'g', 'p', 'a', 'controles'];
         for (const campo of camposNumericos) {
             if (dataParaActualizar[campo]) { // Si el campo tiene *algo* escrito
@@ -554,7 +558,6 @@ function exportarACSV(pacientes, nombreArchivo) {
     // Filtrar claves no deseadas (como 'id' o 'createdAt')
     headers = headers.filter(h => h !== 'id' && h !== 'createdAt');
     // Poner claves importantes primero
-    // MODIFICADO: Cambiado 'gestas' y 'partos' por 'g', 'p', 'a'
     const ordenColumnas = [
         'apellido', 'nombre', 'fechaNacimiento', 'horaNacimiento', 'pesoNacer', 'talla', 'perimetroCefalico', 'edadGestacional', 
         'apgar1', 'apgar5', 'tipoNacimiento', 'evolucion', 'diagnosticos', 'diagnosticoOtros', 'notas',
