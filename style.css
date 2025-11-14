@@ -63,3 +63,17 @@ body {
         .modal-footer {
             @apply mt-6 flex justify-end space-x-3;
         }
+/* --- AGREGAR ESTO AL FINAL DE TU style.css --- */
+
+/* 1. Un input-field más chico para campos numéricos (G, P, A) */
+.input-field-sm {
+    @apply w-24 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors duration-200;
+}
+
+/* 2. Un contenedor para agrupar inputs (ej: Fecha y Resultado) */
+.input-group {
+    @apply flex space-x-2;
+}
+.input-group .input-field {
+    @apply w-1/2; /* Hacemos que cada input ocupe la mitad del espacio */
+}
