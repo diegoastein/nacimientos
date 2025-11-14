@@ -70,25 +70,11 @@ confirmOk.onclick = () => {
 };
 
 // ===================================================================
-// !!!!! ¡¡ATENCIÓN!! LEER ESTO PARA IMPLEMENTAR EN TU SERVIDOR !!!!!
-// ===================================================================
-//
-// La configuración de Firebase (`firebaseConfig`) que ves abajo es
-// SÓLO UN EJEMPLO y no funcionará.
-//
-// PASO 1: VE A https://firebase.google.com/ Y CREA UN NUEVO PROYECTO.
-//
-// PASO 2: EN TU PROYECTO, CREA UNA "WEB APP" Y COPIA EL OBJETO
-//         `firebaseConfig` QUE TE DARÁN.
-//
-// PASO 3: REEMPLAZA EL BLOQUE `firebaseConfig` DE EJEMPLO DE AQUÍ ABAJO
-//         CON EL TUYO REAL.
 //
 // !!!!! PEGA TU CÓDIGO DE FIREBASE AQUÍ ABAJO !!!!!
+//
 // ===================================================================
 
-// --- ¡¡¡ESTE BLOQUE ESTÁ CORREGIDO!!! ---
-// REEMPLAZÁ ESTO CON TUS DATOS REALES DE FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyAv3gGv-t00ZxNC8678xYCbBdIRPEjW9TY",
   authDomain: "neonacimientos.firebaseapp.com",
@@ -214,7 +200,8 @@ formIngreso.addEventListener('submit', async (e) => {
         }
 
         // --- 2. VALIDACIÓN Y CONVERSIÓN DE NÚMEROS ---
-        const camposNumericos = ['pesoNacer', 'talla', 'perimetroCefalico', 'edadGestacional', 'apgar1', 'apgar5', 'edadMaterna', 'gestas', 'partos', 'controles'];
+        // MODIFICADO: Sacamos 'gestas' y 'partos', agregamos 'g', 'p', 'a'
+        const camposNumericos = ['pesoNacer', 'talla', 'perimetroCefalico', 'edadGestacional', 'apgar1', 'apgar5', 'edadMaterna', 'g', 'p', 'a', 'controles'];
         
         for (const campo of camposNumericos) {
             if (data[campo]) { // Si el campo NO está vacío
@@ -273,12 +260,7 @@ function escucharPacientes() {
         pacientesCache.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Más nuevos primero
         loadingIndicator.textContent = "";
         
-        // ==========================================================
-        // ===== ¡¡¡AQUÍ ESTÁ LA CORRECCIÓN!!! =====
-        // Antes decía: renderTablaResultados([]);
-        // Ahora, carga todos los pacientes al inicio.
         renderTablaResultados(pacientesCache); 
-        // ==========================================================
         
         console.log(`Caché actualizado: ${pacientesCache.length} pacientes.`);
         
@@ -398,9 +380,12 @@ function abrirModalEdicion(id) {
     document.getElementById('editNombre').value = paciente.nombre || '';
     document.getElementById('editFechaNacimiento').value = paciente.fechaNacimiento || '';
     document.getElementById('editHoraNacimiento').value = paciente.horaNacimiento || '';
+    
+    // MODIFICADO: Cambiado a 'g', 'p', 'a'
     document.getElementById('editEdadMaterna').value = paciente.edadMaterna || '';
-    document.getElementById('editGestas').value = paciente.gestas || '';
-    document.getElementById('editPartos').value = paciente.partos || '';
+    document.getElementById('editG').value = paciente.g || '';
+    document.getElementById('editP').value = paciente.p || '';
+    document.getElementById('editA').value = paciente.a || '';
     document.getElementById('editControlada').value = paciente.controlada || '';
     document.getElementById('editControles').value = paciente.controles || '';
     
@@ -490,7 +475,8 @@ document.getElementById('btnActualizar').addEventListener('click', async () => {
         }
 
         // --- 3. VALIDACIÓN Y CONVERSIÓN DE NÚMEROS ---
-        const camposNumericos = ['pesoNacer', 'talla', 'perimetroCefalico', 'edadGestacional', 'apgar1', 'apgar5', 'edadMaterna', 'gestas', 'partos', 'controles'];
+        // MODIFICADO: Sacamos 'gestas' y 'partos', agregamos 'g', 'p', 'a'
+        const camposNumericos = ['pesoNacer', 'talla', 'perimetroCefalico', 'edadGestacional', 'apgar1', 'apgar5', 'edadMaterna', 'g', 'p', 'a', 'controles'];
         for (const campo of camposNumericos) {
             if (dataParaActualizar[campo]) { // Si el campo tiene *algo* escrito
                 const valorNum = parseFloat(dataParaActualizar[campo]);
@@ -568,10 +554,11 @@ function exportarACSV(pacientes, nombreArchivo) {
     // Filtrar claves no deseadas (como 'id' o 'createdAt')
     headers = headers.filter(h => h !== 'id' && h !== 'createdAt');
     // Poner claves importantes primero
+    // MODIFICADO: Cambiado 'gestas' y 'partos' por 'g', 'p', 'a'
     const ordenColumnas = [
         'apellido', 'nombre', 'fechaNacimiento', 'horaNacimiento', 'pesoNacer', 'talla', 'perimetroCefalico', 'edadGestacional', 
         'apgar1', 'apgar5', 'tipoNacimiento', 'evolucion', 'diagnosticos', 'diagnosticoOtros', 'notas',
-        'edadMaterna', 'gestas', 'partos', 'controlada', 'controles',
+        'edadMaterna', 'g', 'p', 'a', 'controlada', 'controles',
         'grupoMaterno', 'rhMaterno', 'grupoPaciente', 'rhPaciente',
         'fechaVDRL', 'resultadoVDRL', 'fechaHIV', 'resultadoHIV', 'fechaChagas', 'resultadoChagas',
         'fechaHBV', 'resultadoHBV', 'fechaToxo', 'resultadoToxo', 'fechaCMV', 'resultadoCMV', 'notasSerologia'
